@@ -1,3 +1,14 @@
+/*!
+
+Name: Tunez
+Dependencies: jQuery
+Author: Michael Lynch
+Author URL: http://michaelynch.com
+Date Created: September 10, 2013
+Licensed under the MIT license
+
+*/
+
 ;(function($) {
 
     $.fn.tunez = function(options) {
