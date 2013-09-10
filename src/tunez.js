@@ -62,8 +62,6 @@ Licensed under the MIT license
 	        url: 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+plugin.settings.username+'&api_key='+plugin.settings.key+'&limit='+plugin.settings.limit+'&extended=1&format=json',
 	        dataType: 'jsonp',
 	        success: function(data) {
-	        
-	        	console.log(data);
 	        	
 	        	//if recentracks isn't undefined
 	        	if(data.recenttracks !== undefined) {
