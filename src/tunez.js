@@ -54,18 +54,8 @@ Licensed under the MIT license
 	        return false;
         }
         
-        //vars
-        var listType;
-        
-        //define list type
-        if(plugin.settings.ordered === true) {
-        
-	        listType = 'ol';
-	        
-        } else {
-	        
-	        listType = 'ul';
-        }
+       //define list type
+        var listType = (plugin.settings.ordered === true) ? 'ol' : 'ul';
         
         $.ajax({
         	type: 'GET',
@@ -93,15 +83,15 @@ Licensed under the MIT license
 		        	if(plugin.settings.href === true) {
 			        	
 			        	//for each track
-			        	for(i = 0; i < tracksList.children('li').length; i++) {
+			        	tracksList.children('li').each(function(index) {
 		        	
 			        		//wrap the title with an anchor using the url
-			        		tracksList.children('li:nth-child('+(i + 1)+')').children('.details').children('.title').wrapInner('<a href="'+data.recenttracks.track[i].url+'" target="_blank">');
+			        		$(this).children('.details').children('.title').wrapInner('<a href="'+data.recenttracks.track[index].url+'" target="_blank">');
 			        		
 			        		//wrap the artist with an anchor using the artist url
-			        		tracksList.children('li:nth-child('+(i + 1)+')').children('.details').children('.artist').wrapInner('<a href="http://last.fm/music/'+data.recenttracks.track[i].artist.url+'" target="_blank">');
+			        		$(this).children('.details').children('.artist').wrapInner('<a href="http://last.fm/music/'+data.recenttracks.track[index].artist.url+'" target="_blank">');
 				        	
-			        	}
+			        	});
 			        	
 		        	}
 		        	
@@ -109,13 +99,12 @@ Licensed under the MIT license
 		        	if(plugin.settings.album === true) {
 		        	
 		        		//for each track
-			        	for(i = 0; i < tracksList.children('li').length; i++) {
+			        	tracksList.children('li').each(function(index) {
 		        	
 			        		//append the album to the title
-			        		tracksList.children('li:nth-child('+(i + 1)+')').children('.details').children('.title').after('<span class="album">('+data.recenttracks.track[i].album['#text']+')</span>');
+			        		$(this).children('.details').children('.title').after('<span class="album">('+data.recenttracks.track[index].album['#text']+')</span>');
 				        	
-			        	}
-		        		
+			        	});
 		        	
 		        	}
 		        	
@@ -123,13 +112,12 @@ Licensed under the MIT license
 		        	if(plugin.settings.artwork === true) {
 		        	
 		        		//for each track
-			        	for(i = 0; i < tracksList.children('li').length; i++) {
+			        	tracksList.children('li').each(function(index) {
 		        	
 			        		//append the album to the title
-			        		tracksList.children('li:nth-child('+(i + 1)+')').prepend('<img src="'+data.recenttracks.track[i].image[3]['#text']+'" alt="'+data.recenttracks.track[i].album['#text']+'" class="artwork" />');
+			        		$(this).prepend('<img src="'+data.recenttracks.track[index].image[3]['#text']+'" alt="'+data.recenttracks.track[index].album['#text']+'" class="artwork" />');
 				        	
-			        	}
-		        		
+			        	});
 		        	
 		        	}
 	        	
