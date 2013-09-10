@@ -1,4 +1,4 @@
-#Reading Time
+#Tunez
 
 A simple, lightweight jQuery plugin used to display songs recently scrobbled by a Last.fm user.
 
