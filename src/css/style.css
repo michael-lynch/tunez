@@ -1,0 +1,63 @@
+body {
+	font: 14px Arial, Helvetica, sans-serif;
+	line-height: 22px;
+	margin: 0;
+	color: grey;
+}
+
+h1 {
+	margin: 0 0 30px 0;
+	font-size: 30px;
+	color: dimgrey;
+}
+
+.recent-tracks {
+	margin: 100px 0 0 100px;
+	float: left;
+	width: 300px;
+}
+
+.tracks {
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: 100%;
+}
+
+.tracks li {
+	border-bottom: 1px silver solid;
+	padding: 0 0 15px 0;
+	margin: 0 0 15px 0;
+	float: left;
+	width: 100%;
+}
+
+.tracks li:last-child {
+	border: none;
+}
+
+.tracks li .artwork {
+	margin: 0 5% 0 0;
+	float: left;
+	width: 60px;
+}
+
+.tracks li .details {
+	float: left;
+	width: 65%;
+}
+
+.tracks li span.artist {
+	display: block;
+	float: left;
+	width: 100%;
+}
+
+.tracks li span.title {
+	margin: 0 5px 0 0;
+}
+
+a {
+	color: crimson;
+	text-decoration: none;
+}

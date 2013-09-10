@@ -1,0 +1,60 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<meta charset="utf-8">
+
+	<title>Tunez jQuery Plugin</title>
+	
+	<meta name="description" content="A simple, lightweight jQuery plugin to display a user's recently scrobbled tracks on Last.fm">
+	
+	<meta name="author" content="http://michaelynch.com">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- for presentation only -->
+	<link rel="stylesheet" type="text/css" media="screen" href="../src/css/style.css">
+	
+</head>
+
+<body class="no-js en" lang="en">
+
+	<div class="recent-tracks">
+	
+		<h1>Recent Tracks</h1>
+	
+		<div class="tunez">Loading...</div>
+	
+	</div>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+	if (typeof jQuery == 'undefined') {
+	    document.write(unescape("%3Cscript src='/js/lib/jquery.1.9.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+	}
+	</script>
+	
+	<script src="../src/tunez.js"></script>
+	
+	<script>
+	
+		$('.tunez').tunez({
+			key: '1e2fbabb102c1fa0760379b9ef6f9ecc',
+			username: 'michaelynch',
+			limit: 5,
+			href: true,
+			ordered: true,
+			album: true,
+			artwork: true
+		});
+	
+	</script>
+
+</body>
+	
+</html>
