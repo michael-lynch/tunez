@@ -72,6 +72,14 @@ key: "api key"
 <br />A boolean to indicate whether or not the album artwork is displayed (default: true).
 </li>
 
+<li>success: function
+<br />A callback function that runs after the data has been retrieved (default: function()).
+</li>
+
+<li>error: function
+<br />A callback function that runs if there was an error retrieving the data (default: function()).
+</li>
+
 </ol>
 
 #####Example:
@@ -85,7 +93,13 @@ key: "api key"
 			ordered: false,
 			href: false,
 			album: false,
-			artwork: false
+			artwork: false,
+			success: function() {
+				console.log('Rock and roll.')
+			},
+			error: function() {
+				console.log('Without music, this is a mistake.');
+			}
 		});
 		
 	});
