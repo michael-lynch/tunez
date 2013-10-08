@@ -27,7 +27,9 @@ Licensed under the MIT license
             ordered: true,
             href: true,
             album: true,
-            artwork: true
+            artwork: true,
+            success: function() {},
+            error: function() {}
         }
 
         //define plugin
@@ -63,7 +65,7 @@ Licensed under the MIT license
 	        dataType: 'jsonp',
 	        success: function(data) {
 	        	
-	        	//if recentracks isn't undefined
+	        	//if recenttracks isn't undefined
 	        	if(data.recenttracks !== undefined) {
 	        	
 		        	//define tracks list
@@ -118,18 +120,22 @@ Licensed under the MIT license
 			        	});
 		        	
 		        	}
+		        	
+		        	//run success callback function
+		        	plugin.settings.success.call(this);
 	        	
-	        	} else {
-		        	
-		        	//alert error
-		        	alert(data.message);
-		        	
-	        	}
+	        	}//if recenttracks
 		        
-	        }
+	        },//success
+	        error: function() {
 	        
-        });
+	        	//run error callback function
+	        	plugin.settings.error.call(this);
+	        	
+	        }//error
+	        
+        });//ajax
 
-    }
+    }//tunez
 
 })(jQuery);

@@ -50,7 +50,13 @@
 			href: true,
 			ordered: true,
 			album: true,
-			artwork: true
+			artwork: true,
+			success: function() {
+				console.log('Rock and roll.');
+			},
+			error: function() {
+				console.log('Without music, this would be a mistake');
+			}
 		});
 	
 	</script>
