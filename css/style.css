@@ -28,6 +28,7 @@ h1 {
 
 .tracks li {
 	border-bottom: 1px silver solid;
+	list-style: none;
 	padding: 0 0 15px 0;
 	margin: 0 0 15px 0;
 	float: left;
