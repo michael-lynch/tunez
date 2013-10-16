@@ -23,11 +23,31 @@
 
 <body class="no-js en" lang="en">
 
-	<div class="recent-tracks">
-	
-		<h1>Recent Tracks</h1>
-	
-		<div class="tunez">Loading...</div>
+	<div class="wrapper">
+
+		<div class="recent-tracks hide">
+		
+			<h1>Recent Tracks</h1>
+		
+			<div class="tunez">Loading...</div>
+		
+		</div>
+		
+		<div class="weekly-artists hide">
+		
+			<h1>Top Artists Last Week</h1>
+		
+			<div class="tunez">Loading...</div>
+		
+		</div>
+		
+		<div class="weekly-albums hide">
+		
+			<h1>Top Albums Last Week</h1>
+		
+			<div class="tunez">Loading...</div>
+		
+		</div>
 	
 	</div>
 	
@@ -43,8 +63,8 @@
 	
 	<script>
 	
-		$('.tunez').tunez({
-			key: '1e2fbabb102c1fa0760379b9ef6f9ecc',
+		$('.recent-tracks .tunez').tunez({
+			key: 'd00c07cf2d0462e8d6930d6b1c690b05',
 			username: 'michaelynch',
 			limit: 5,
 			href: true,
@@ -52,7 +72,37 @@
 			album: true,
 			artwork: true,
 			success: function() {
-				console.log('Rock and roll.');
+				$('.recent-tracks').show();
+			},
+			error: function() {
+				console.log('Without music, this would be a mistake');
+			}
+		});
+		
+		$('.weekly-artists .tunez').tunez({
+			key: 'd00c07cf2d0462e8d6930d6b1c690b05',
+			username: 'michaelynch',
+			method: 'weeklyartists',
+			limit: 10,
+			href: true,
+			ordered: true,
+			success: function() {
+				$('.weekly-artists').show();
+			},
+			error: function() {
+				console.log('Without music, this would be a mistake');
+			}
+		});
+		
+		$('.weekly-albums .tunez').tunez({
+			key: 'd00c07cf2d0462e8d6930d6b1c690b05',
+			username: 'michaelynch',
+			method: 'weeklyalbums',
+			limit: 10,
+			href: true,
+			ordered: true,
+			success: function() {
+				$('.weekly-albums').show();
 			},
 			error: function() {
 				console.log('Without music, this would be a mistake');
