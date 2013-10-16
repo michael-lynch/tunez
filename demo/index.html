@@ -54,8 +54,8 @@
 			success: function() {
 				$('.recent-tracks').show();
 			},
-			error: function() {
-				console.log('Without music, this would be a mistake');
+			error: function(message) {
+				console.log(message);
 			}
 		});
 	

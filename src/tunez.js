@@ -29,7 +29,7 @@ Licensed under the MIT license
             album: true,
             artwork: true,
             success: function() {},
-            error: function() {}
+            error: function(message) {}
         }
 
         //define plugin
@@ -62,75 +62,84 @@ Licensed under the MIT license
         $.ajax({
         	type: 'GET',
 	        url: 'http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user='+plugin.settings.username+'&api_key='+plugin.settings.key+'&limit='+plugin.settings.limit+'&extended=1&format=json',
-	        dataType: 'jsonp',
 	        success: function(data) {
+	        
+	        	if(!data.error) {
 	        	
-	        	//if recenttracks isn't undefined
-	        	if(data.recenttracks !== undefined) {
-	        	
-		        	//define tracks list
-		        	var tracksList = $('<'+listType+' class="tracks"></'+listType+'>').replaceAll(el);
+		        	//if recenttracks isn't undefined
+		        	if(data.recenttracks !== undefined) {
 		        	
-		        	//for each track
-		        	for(i = 0; i < data.recenttracks.track.length; i++) {
-		        	
-		        		//append a list item with the track details
-		        		tracksList.append('<li><span class="details"><span class="title">'+data.recenttracks.track[i].name+'</span><span class="artist">'+data.recenttracks.track[i].artist.name+'</span></span></li>');
-			        	
-		        	}
-		        	
-		        	//if href is true
-		        	if(plugin.settings.href === true) {
+			        	//define tracks list
+			        	var tracksList = $('<'+listType+' class="tracks"></'+listType+'>').replaceAll(el);
 			        	
 			        	//for each track
-			        	tracksList.children('li').each(function(index) {
-		        	
-			        		//wrap the title with an anchor using the url
-			        		$(this).children('.details').children('.title').wrapInner('<a href="'+data.recenttracks.track[index].url+'" target="_blank">');
-			        		
-			        		//wrap the artist with an anchor using the artist url
-			        		$(this).children('.details').children('.artist').wrapInner('<a href="http://last.fm/music/'+data.recenttracks.track[index].artist.url+'" target="_blank">');
-				        	
-			        	});
+			        	for(i = 0; i < data.recenttracks.track.length; i++) {
 			        	
-		        	}
-		        	
-		        	//if album is true
-		        	if(plugin.settings.album === true) {
-		        	
-		        		//for each track
-			        	tracksList.children('li').each(function(index) {
-		        	
-			        		//append the album to the title
-			        		$(this).children('.details').children('.title').after('<span class="album">('+data.recenttracks.track[index].album['#text']+')</span>');
+			        		//append a list item with the track details
+			        		tracksList.append('<li><span class="details"><span class="title">'+data.recenttracks.track[i].name+'</span><span class="artist">'+data.recenttracks.track[i].artist.name+'</span></span></li>');
 				        	
-			        	});
-		        	
-		        	}
-		        	
-		        	//if artwork is true
-		        	if(plugin.settings.artwork === true) {
-		        	
-		        		//for each track
-			        	tracksList.children('li').each(function(index) {
-		        	
-			        		//append the album to the title
-			        		$(this).prepend('<img src="'+data.recenttracks.track[index].image[3]['#text']+'" alt="'+data.recenttracks.track[index].album['#text']+'" class="artwork" />');
+			        	}
+			        	
+			        	//if href is true
+			        	if(plugin.settings.href === true) {
 				        	
-			        	});
+				        	//for each track
+				        	tracksList.children('li').each(function(index) {
+			        	
+				        		//wrap the title with an anchor using the url
+				        		$(this).children('.details').children('.title').wrapInner('<a href="'+data.recenttracks.track[index].url+'" target="_blank">');
+				        		
+				        		//wrap the artist with an anchor using the artist url
+				        		$(this).children('.details').children('.artist').wrapInner('<a href="http://last.fm/music/'+data.recenttracks.track[index].artist.url+'" target="_blank">');
+					        	
+				        	});
+				        	
+			        	}
+			        	
+			        	//if album is true
+			        	if(plugin.settings.album === true) {
+			        	
+			        		//for each track
+				        	tracksList.children('li').each(function(index) {
+			        	
+				        		//append the album to the title
+				        		$(this).children('.details').children('.title').after('<span class="album">('+data.recenttracks.track[index].album['#text']+')</span>');
+					        	
+				        	});
+			        	
+			        	}
+			        	
+			        	//if artwork is true
+			        	if(plugin.settings.artwork === true) {
+			        	
+			        		//for each track
+				        	tracksList.children('li').each(function(index) {
+			        	
+				        		//append the album to the title
+				        		$(this).prepend('<img src="'+data.recenttracks.track[index].image[3]['#text']+'" alt="'+data.recenttracks.track[index].album['#text']+'" class="artwork" />');
+					        	
+				        	});
+			        	
+			        	}
+			        	
+			        	//run success callback function
+			        	plugin.settings.success.call(this);
 		        	
-		        	}
-		        	
-		        	//run success callback function
-		        	plugin.settings.success.call(this);
+		        	}//if recenttracks
 	        	
-	        	}//if recenttracks
+	        	} else {
+		        	
+		        	//run error callback function and pass it the last.fm error
+		        	plugin.settings.error.call(this, data.message);
+		        	
+	        	}
 		        
 	        },//success
-	        error: function() {
 	        
-	        	//run error callback function
-	        	plugin.settings.error.call(this);
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        
+	        	//run error callback function and pass it the ajax error
+	        	plugin.settings.error.call(this, textStatus);
 	        	
 	        }//error
 	        
