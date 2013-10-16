@@ -30,7 +30,7 @@ Licensed under the MIT license
             album: true,
             artwork: true,
             success: function() {},
-            error: function() {}
+            error: function(message) {}
         }
 
         //define plugin
@@ -81,6 +81,8 @@ Licensed under the MIT license
         	type: 'GET',
 	        url: 'http://ws.audioscrobbler.com/2.0/?method='+apiMethod+'&user='+plugin.settings.username+'&api_key='+plugin.settings.key+'&limit='+plugin.settings.limit+'&extended=1&format=json',
 	        success: function(data) {
+	        
+	        	if(!data.error) {
 	        
 	        	//RECENT TRACKS
 	        	
@@ -207,12 +209,19 @@ Licensed under the MIT license
 		        	
 		        	//run success callback function
 		        	plugin.settings.success.call(this);
+		        	
+		        } else {
+		        
+		        	//run error callback function
+		        	plugin.settings.error.call(this, data.message);
+			        
+		        }
 		        
 	        },//success
-	        error: function() {
+	        error: function(jqXHR, textStatus, errorThrown) {
 	        
 	        	//run error callback function
-	        	plugin.settings.error.call(this);
+	        	plugin.settings.error.call(this, textStatus);
 	        	
 	        }//error
 	        

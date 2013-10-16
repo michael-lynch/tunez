@@ -74,8 +74,8 @@
 			success: function() {
 				$('.recent-tracks').show();
 			},
-			error: function() {
-				console.log('Without music, this would be a mistake');
+			error: function(message) {
+				console.log(message);
 			}
 		});
 		
@@ -89,8 +89,8 @@
 			success: function() {
 				$('.weekly-artists').show();
 			},
-			error: function() {
-				console.log('Without music, this would be a mistake');
+			error: function(message) {
+				console.log(message);
 			}
 		});
 		
@@ -104,8 +104,8 @@
 			success: function() {
 				$('.weekly-albums').show();
 			},
-			error: function() {
-				console.log('Without music, this would be a mistake');
+			error: function(message) {
+				console.log(message);
 			}
 		});
 	
