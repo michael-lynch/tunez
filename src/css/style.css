@@ -13,20 +13,25 @@ h1 {
 }
 
 .wrapper {
-	margin: 60px 0 0 120px;
+	margin: 60px 0 0 10%;
 	float: left;
 }
 
 .wrapper div {
 	margin: 0 80px 0 0;
 	float: left;
+	width: 20%;
+}
+
+.wrapper div:last-child {
+	margin: 0;
 }
 
 ol, ul {
 	margin: 0;
 	padding: 0;
 	float: left;
-	width: 300px;
+	width: 100%;
 }
 
 ol li, ul li {
@@ -95,6 +100,17 @@ ol li:last-child, ul li:last-child {
 
 .weekly-albums .album {
 	margin: 0 5px 0 0;
+}
+
+/* top artists */
+
+.top-artists .artist {
+	margin: 0 5px 0 0;
+}
+
+.top-artists img {
+	width: 100%;
+	height: auto;
 }
 
 /* links */

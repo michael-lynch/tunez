@@ -29,6 +29,7 @@ Licensed under the MIT license
             href: true,
             album: true,
             artwork: true,
+            artistphoto: true,
             success: function() {},
             error: function(message) {}
         }
@@ -75,6 +76,10 @@ Licensed under the MIT license
         
 	        apiMethod = 'user.getweeklyalbumchart';
 	        
+	    } else if(plugin.settings.method === 'topartists') {
+        
+	        apiMethod = 'user.gettopartists';
+	        
         }
         
         $.ajax({
@@ -84,131 +89,174 @@ Licensed under the MIT license
 	        
 	        	if(!data.error) {
 	        
-	        	//RECENT TRACKS
-	        	
-		        	//if recenttracks isn't undefined
-		        	if(data.recenttracks !== undefined) {
+		        	//RECENT TRACKS
 		        	
-			        	//define tracks list
-			        	var tracksList = $('<'+listType+' class="tracks"></'+listType+'>').replaceAll(el);
+			        	//if recenttracks isn't undefined
+			        	if(data.recenttracks !== undefined) {
 			        	
-			        	//for each track
-			        	for(i = 0; i < data.recenttracks.track.length; i++) {
-			        	
-			        		//append a list item with the track details
-			        		tracksList.append('<li><span class="details"><span class="title">'+data.recenttracks.track[i].name+'</span><span class="artist">'+data.recenttracks.track[i].artist.name+'</span></span></li>');
-				        	
-			        	}
-			        	
-			        	//if href is true
-			        	if(plugin.settings.href === true) {
+				        	//define tracks list
+				        	var tracksList = $('<'+listType+' class="tracks"></'+listType+'>').replaceAll(el);
 				        	
 				        	//for each track
-				        	tracksList.children('li').each(function(index) {
-			        	
-				        		//wrap the title with an anchor using the url
-				        		$(this).children('.details').children('.title').wrapInner('<a href="'+data.recenttracks.track[index].url+'" target="_blank">');
-				        		
-				        		//wrap the artist with an anchor using the artist url
-				        		$(this).children('.details').children('.artist').wrapInner('<a href="http://last.fm/music/'+data.recenttracks.track[index].artist.url+'" target="_blank">');
+				        	for(i = 0; i < data.recenttracks.track.length; i++) {
+				        	
+				        		//append a list item with the track details
+				        		tracksList.append('<li><span class="details"><span class="title">'+data.recenttracks.track[i].name+'</span><span class="artist">'+data.recenttracks.track[i].artist.name+'</span></span></li>');
 					        	
-				        	});
+				        	}
 				        	
-			        	}
-			        	
-			        	//if album is true
-			        	if(plugin.settings.album === true) {
-			        	
-			        		//for each track
-				        	tracksList.children('li').each(function(index) {
-			        	
-				        		//append the album to the title
-				        		$(this).children('.details').children('.title').after('<span class="album">('+data.recenttracks.track[index].album['#text']+')</span>');
+				        	//if href is true
+				        	if(plugin.settings.href === true) {
 					        	
-				        	});
-			        	
-			        	}
-			        	
-			        	//if artwork is true
-			        	if(plugin.settings.artwork === true) {
-			        	
-			        		//for each track
-				        	tracksList.children('li').each(function(index) {
-			        	
-				        		//append the album to the title
-				        		$(this).prepend('<img src="'+data.recenttracks.track[index].image[3]['#text']+'" alt="'+data.recenttracks.track[index].album['#text']+'" class="artwork" />');
+					        	//for each track
+					        	tracksList.children('li').each(function(index) {
+				        	
+					        		//wrap the title with an anchor using the url
+					        		$(this).children('.details').children('.title').wrapInner('<a href="'+data.recenttracks.track[index].url+'" target="_blank">');
+					        		
+					        		//wrap the artist with an anchor using the artist url
+					        		$(this).children('.details').children('.artist').wrapInner('<a href="http://last.fm/music/'+data.recenttracks.track[index].artist.url+'" target="_blank">');
+						        	
+					        	});
 					        	
-				        	});
-			        	
-			        	}
-	
-		        	
-		        	}//if recenttracks
-		        	
-		        //WEEKLY ARTISTS
-		        
-		        	if(data.weeklyartistchart !== undefined) {
-		        	
-		        		//define tracks list
-			        	var artistsList = $('<'+listType+' class="artists"></'+listType+'>').replaceAll(el);
-			        	
-			        	//for each artists
-			        	for(i = 0; i < data.weeklyartistchart.artist.length; i++) {
-			        	
-			        		//append a list item with the artist details
-			        		artistsList.append('<li><span class="artist">'+data.weeklyartistchart.artist[i].name+'</span><span class="playcount">('+data.weeklyartistchart.artist[i].playcount+' plays)</span></li>');
+				        	}
 				        	
-			        	}
-			        	
-			        	//if href is true
-			        	if(plugin.settings.href === true) {
+				        	//if album is true
+				        	if(plugin.settings.album === true) {
 				        	
-				        	//for each track
-				        	artistsList.children('li').each(function(index) {
-				        		
-				        		//wrap the artist with an anchor using the artist url
-				        		$(this).children('.artist').wrapInner('<a href="'+data.weeklyartistchart.artist[index].url+'" target="_blank">');
+				        		//for each track
+					        	tracksList.children('li').each(function(index) {
+				        	
+					        		//append the album to the title
+					        		$(this).children('.details').children('.title').after('<span class="album">('+data.recenttracks.track[index].album['#text']+')</span>');
+						        	
+					        	});
+				        	
+				        	}
+				        	
+				        	//if artwork is true
+				        	if(plugin.settings.artwork === true) {
+				        	
+				        		//for each track
+					        	tracksList.children('li').each(function(index) {
+				        	
+					        		//append the album to the title
+					        		$(this).prepend('<img src="'+data.recenttracks.track[index].image[3]['#text']+'" alt="'+data.recenttracks.track[index].album['#text']+'" class="artwork" />');
+						        	
+					        	});
+				        	
+				        	}
+		
+			        	
+			        	}//if recenttracks
+			        	
+			        //WEEKLY ARTISTS
+			        
+			        	if(data.weeklyartistchart !== undefined) {
+			        	
+			        		//define tracks list
+				        	var artistsList = $('<'+listType+' class="artists"></'+listType+'>').replaceAll(el);
+				        	
+				        	//for each artists
+				        	for(i = 0; i < data.weeklyartistchart.artist.length; i++) {
+				        	
+				        		//append a list item with the artist details
+				        		artistsList.append('<li><span class="artist">'+data.weeklyartistchart.artist[i].name+'</span><span class="playcount">('+data.weeklyartistchart.artist[i].playcount+' plays)</span></li>');
 					        	
-				        	});
+				        	}
 				        	
-			        	}
-			        	
-		        	}//if weeklyartistchart
-		        	
-		         //WEEKLY ALBUMS
-		        
-		        	if(data.weeklyalbumchart !== undefined) {
-		        	
-		        		//define tracks list
-			        	var albumsList = $('<'+listType+' class="albums"></'+listType+'>').replaceAll(el);
-			        	
-			        	//for each artists
-			        	for(i = 0; i < data.weeklyalbumchart.album.length; i++) {
-			        	
-			        		//append a list item with the artist details
-			        		albumsList.append('<li><span class="artist">'+data.weeklyalbumchart.album[i].artist['#text']+'</span><span class="album">'+data.weeklyalbumchart.album[i].name+'</span><span class="playcount">('+data.weeklyalbumchart.album[i].playcount+' plays)</span></li>');
-				        	
-			        	}
-			        	
-			        	//if href is true
-			        	if(plugin.settings.href === true) {
-				        	
-				        	//for each track
-				        	albumsList.children('li').each(function(index) {
-				        		
-				        		//wrap the artist with an anchor using the artist url
-				        		$(this).children('.artist').wrapInner('<a href="'+data.weeklyalbumchart.album[index].url+'" target="_blank">');
+				        	//if href is true
+				        	if(plugin.settings.href === true) {
 					        	
-				        	});
+					        	//for each track
+					        	artistsList.children('li').each(function(index) {
+					        		
+					        		//wrap the artist with an anchor using the artist url
+					        		$(this).children('.artist').wrapInner('<a href="'+data.weeklyartistchart.artist[index].url+'" target="_blank">');
+						        	
+					        	});
+					        	
+				        	}
 				        	
-			        	}
+			        	}//if weeklyartistchart
 			        	
-		        	}//if weeklyalbumchart
-		        	
-		        //SUCCESS CALLBACK
-		        	
-		        	//run success callback function
-		        	plugin.settings.success.call(this);
+			         //WEEKLY ALBUMS
+			        
+			        	if(data.weeklyalbumchart !== undefined) {
+			        	
+			        		//define tracks list
+				        	var albumsList = $('<'+listType+' class="albums"></'+listType+'>').replaceAll(el);
+				        	
+				        	//for each artists
+				        	for(i = 0; i < data.weeklyalbumchart.album.length; i++) {
+				        	
+				        		//append a list item with the artist details
+				        		albumsList.append('<li><span class="artist">'+data.weeklyalbumchart.album[i].artist['#text']+'</span><span class="album">'+data.weeklyalbumchart.album[i].name+'</span><span class="playcount">('+data.weeklyalbumchart.album[i].playcount+' plays)</span></li>');
+					        	
+				        	}
+				        	
+				        	//if href is true
+				        	if(plugin.settings.href === true) {
+					        	
+					        	//for each track
+					        	albumsList.children('li').each(function(index) {
+					        		
+					        		//wrap the artist with an anchor using the artist url
+					        		$(this).children('.artist').wrapInner('<a href="'+data.weeklyalbumchart.album[index].url+'" target="_blank">');
+						        	
+					        	});
+					        	
+				        	}
+				        	
+			        	}//if weeklyalbumchart
+			        	
+			        //TOP ARTISTS
+			        
+			        	if(data.topartists !== undefined) {
+			        	
+			        		//define tracks list
+				        	var artistsList = $('<'+listType+' class="artists"></'+listType+'>').replaceAll(el);
+				        	
+				        	//for each artists
+				        	for(i = 0; i < data.topartists.artist.length; i++) {
+				        	
+				        		//append a list item with the artist details
+				        		artistsList.append('<li><span class="artist">'+data.topartists.artist[i].name+'</span><span class="playcount">('+data.topartists.artist[i].playcount+' plays)</span></li>');
+					        	
+				        	}
+				        	
+				        	//if href is true
+				        	if(plugin.settings.href === true) {
+					        	
+					        	//for each track
+					        	artistsList.children('li').each(function(index) {
+					        		
+					        		//wrap the artist with an anchor using the artist url
+					        		$(this).children('.artist').wrapInner('<a href="'+data.topartists.artist[index].url+'" target="_blank">');
+						        	
+					        	});
+					        	
+				        	}
+				        	
+				        	//if artistphoto is true
+				        	if(plugin.settings.artistphoto === true) {
+				        	
+				        		//for each artist
+					        	artistsList.children('li').each(function(index) {
+				        	
+					        		//append the album to the title
+					        		$(this).prepend('<img src="'+data.topartists.artist[index].image[4]['#text']+'" alt="'+data.topartists.artist[index].name+'" class="artist-photo" />');
+						        	
+					        	});
+				        	
+				        	}
+				        	
+			        	}//if topartists
+			        	
+			        //SUCCESS CALLBACK
+			        	
+			        	//run success callback function
+			        	plugin.settings.success.call(this);
 		        	
 		        } else {
 		        

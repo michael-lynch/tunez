@@ -48,6 +48,14 @@
 			<div class="tunez">Loading...</div>
 		
 		</div>
+		
+		<div class="top-artists hide">
+		
+			<h1>Overall Top Artists</h1>
+		
+			<div class="tunez">Loading...</div>
+		
+		</div>
 	
 	</div>
 	
@@ -103,6 +111,22 @@
 			ordered: true,
 			success: function() {
 				$('.weekly-albums').show();
+			},
+			error: function(message) {
+				console.log(message);
+			}
+		});
+		
+		$('.top-artists .tunez').tunez({
+			key: 'd00c07cf2d0462e8d6930d6b1c690b05',
+			username: 'michaelynch',
+			method: 'topartists',
+			limit: 5,
+			href: true,
+			ordered: true,
+			artistphoto: true,
+			success: function() {
+				$('.top-artists').show();
 			},
 			error: function(message) {
 				console.log(message);
