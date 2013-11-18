@@ -1,0 +1,26 @@
+{
+	"name": "tunez",
+	"title": "Tunez",
+	"description": "A simple, lightweight jQuery plugin to display a user's recently scrobbled tracks on Last.fm",
+	"keywords": [
+		"last.fm",
+		"songs",
+		"recent",
+		"scrobbled",
+		"music"
+	],
+	"version": "1.0.0",
+	"author": {
+		"name": "Michael Lynch",
+		"url": "http://michaelynch.com"
+	},
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://raw.github.com/michael-lynch/tunez/master/LICENSE.md"
+		}
+	],
+	"dependencies": {
+		"jquery": ">=1.8"
+	}
+}
