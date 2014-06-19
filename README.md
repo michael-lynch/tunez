@@ -10,34 +10,42 @@ A simple, lightweight jQuery plugin used to display songs recently scrobbled by 
 
 Include jQuery and the plugin in the head or footer of your page.
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     
-    <script src="/js/plugins/tunez.js"></script>
+<script src="/js/plugins/tunez.js"></script>
+```
     
 Create an element with a class or ID that will display the recently scrobbled songs.
 
-	<div id="tunez"></div>
+```html
+<div id="tunez"></div>
+```
     
 Initialize the plugin targeting the class, ID or element. 
 
-	$('#tunez').tunez();
+```js
+$('#tunez').tunez();
+```
 	
 <em>The plugin will replace the element with an ordered or unordered list with each scrobbled track and each detail will be wrapped in a span for you to style it however you wish.</em>
 
 ####Example Ouput:
 
-	<ol>
+```html
+<ol>
 
-		<li>
-			<img src="http://last.fm" alt="ALbum Title" class="artwork">
-			<span class="details">
-				<span class="title"><a href="http://last.fm" target="_blank">Song Title</a></span>
-				<span class="album">(Album Title)</span>
-				<span class="artist"><a href="http://last.fm" target="_blank">Artist</a></span>
-			</span>
-		</li>
+	<li>
+		<img src="http://last.fm" alt="ALbum Title" class="artwork">
+		<span class="details">
+			<span class="title"><a href="http://last.fm" target="_blank">Song Title</a></span>
+			<span class="album">(Album Title)</span>
+			<span class="artist"><a href="http://last.fm" target="_blank">Artist</a></span>
+		</span>
+	</li>
 
-	</ol>
+</ol>
+```
 	
 ####Options
 
@@ -84,22 +92,24 @@ key: "api key"
 
 #####Example:
 
-	$(function() {
+```js
+$(function() {
 
-		$('#tunez').tunez({
-			key: '1e2fbabb102c1fa0760379b9ef6f9ecc',
-			username: 'michaelynch',
-			limit: 10,
-			ordered: false,
-			href: false,
-			album: false,
-			artwork: false,
-			success: function() {
-				console.log('Rock and roll.')
-			},
-			error: function() {
-				console.log('Without music, this is a mistake.');
-			}
-		});
-		
+	$('#tunez').tunez({
+		key: '1e2fbabb102c1fa0760379b9ef6f9ecc',
+		username: 'michaelynch',
+		limit: 10,
+		ordered: false,
+		href: false,
+		album: false,
+		artwork: false,
+		success: function() {
+			console.log('Rock and roll.')
+		},
+		error: function() {
+			console.log('Without music, this is a mistake.');
+		}
 	});
+	
+});
+```
